@@ -47,13 +47,16 @@ vectorizer = pickle.load(open("vectorizer.pk", "rb"))
 model = XGBClassifier()
 model.load_model("xgboost_model.json")
 
+databasehost=os.environ.get('databasehost')
+database=os.environ.get('database')
+databaseuser=os.environ.get('databaseuser')
+databasepassword=os.environ.get('databasepassword')
+
 # get bus fees details
-
-
 def getBusFeesDetail(origin, destination):
     try:
         mySQLConnection = mysql.connector.connect(
-            host='remotemysql.com', database='JVXasAeztf', user='JVXasAeztf', password='GPiI9x1zKK')
+            host=databasehost, database=database, user=databaseuser, password=databasepassword)
 
         cursor = mySQLConnection.cursor(buffered=True)
         sql_select_query = "SELECT * FROM bus_fees WHERE origin=%s and destination=%s"
@@ -97,7 +100,7 @@ def getBusFeesDetail(origin, destination):
 def getTrainFeesDetail(origin_station, destination_station):
     try:
         mySQLConnection = mysql.connector.connect(
-            host='remotemysql.com', database='JVXasAeztf', user='JVXasAeztf', password='GPiI9x1zKK')
+            host=databasehost, database=database, user=databaseuser, password=databasepassword)
 
         cursor = mySQLConnection.cursor(buffered=True)
         sql_select_query = "SELECT * FROM train_fees WHERE origin_station=%s and destination_station=%s"
@@ -136,7 +139,7 @@ def getTrainFeesDetail(origin_station, destination_station):
 def getDistanceByBus(origin, destination):
     try:
         mySQLConnection = mysql.connector.connect(
-            host=os.environ.get('databasehost'), database=os.environ.get('database'), user=os.environ.get('databaseuser'), password=os.environ.get('databasepassword'))
+            host=databasehost, database=database, user=databaseuser, password=databasepassword)
         cursor = mySQLConnection.cursor(buffered=True)
         sql_select_query = "SELECT * FROM distance_by_bus WHERE origin=%s and destination=%s"
         location = (origin, destination)
@@ -173,7 +176,7 @@ def getDistanceByBus(origin, destination):
 def getDistanceByTrain(origin, destination):
     try:
         mySQLConnection = mysql.connector.connect(
-            host='remotemysql.com', database='JVXasAeztf', user='JVXasAeztf', password='GPiI9x1zKK')
+            host=databasehost, database=database, user=databaseuser, password=databasepassword)
         cursor = mySQLConnection.cursor(buffered=True)
         sql_select_query = "SELECT * FROM distance_by_train WHERE origin_station=%s and destination_station=%s"
         location = (origin, destination)
@@ -208,7 +211,7 @@ def getDistanceByTrain(origin, destination):
 def getBusTimeDetail(origin, destination):
     try:
         mySQLConnection = mysql.connector.connect(
-            host='remotemysql.com', database='JVXasAeztf', user='JVXasAeztf', password='GPiI9x1zKK')
+            host=databasehost, database=database, user=databaseuser, password=databasepassword)
 
         cursor = mySQLConnection.cursor(buffered=True)
         sql_select_query = "SELECT * FROM bus_times WHERE origin=%s and destination=%s"
@@ -271,7 +274,7 @@ def getBusTimeDetail(origin, destination):
 def getTrainTimeDetail(origin, destination):
     try:
         mySQLConnection = mysql.connector.connect(
-            host='remotemysql.com', database='JVXasAeztf', user='JVXasAeztf', password='GPiI9x1zKK')
+            host=databasehost, database=database, user=databaseuser, password=databasepassword)
 
         cursor = mySQLConnection.cursor(buffered=True)
         sql_select_query = "SELECT * FROM train_times WHERE origin=%s and destination=%s"
@@ -333,7 +336,7 @@ def getTrainTimeDetail(origin, destination):
 def bookBusTicket(origin, destination, date, time, bus_type):
     try:
         mySQLConnection = mysql.connector.connect(
-            host='remotemysql.com', database='JVXasAeztf', user='JVXasAeztf', password='GPiI9x1zKK')
+            host=databasehost, database=database, user=databaseuser, password=databasepassword)
         cursor = mySQLConnection.cursor(buffered=True)
         sql_select_query = "INSERT INTO bus_ticket_booking (origin,destination,date,time,bus_type) VALUES (%s ,%s, %s,%s,%s)"
         values = (origin, destination, date, time, bus_type)
@@ -356,7 +359,7 @@ def bookBusTicket(origin, destination, date, time, bus_type):
 def bookTrainTicket(origin, destination, date, time, seat_type):
     try:
         mySQLConnection = mysql.connector.connect(
-            host='remotemysql.com', database='JVXasAeztf', user='JVXasAeztf', password='GPiI9x1zKK')
+            host=databasehost, database=database, user=databaseuser, password=databasepassword)
         cursor = mySQLConnection.cursor(buffered=True)
         sql_select_query = "INSERT INTO train_ticket_booking (origin,destination,date,time,train_type) VALUES (%s ,%s, %s,%s,%s)"
         values = (origin, destination, date, time, seat_type)
@@ -379,7 +382,7 @@ def bookTrainTicket(origin, destination, date, time, seat_type):
 def makeBusComplaint(bus_number, route_number, date, time, description):
     try:
         mySQLConnection = mysql.connector.connect(
-            host='remotemysql.com', database='JVXasAeztf', user='JVXasAeztf', password='GPiI9x1zKK')
+            host=databasehost, database=database, user=databaseuser, password=databasepassword)
         cursor = mySQLConnection.cursor(buffered=True)
         sql_select_query = "INSERT INTO bus_complaint (bus_number,route_number,date,time,description) VALUES (%s ,%s, %s,%s,%s)"
         values = (bus_number, route_number, date, time, description)
@@ -402,7 +405,7 @@ def makeBusComplaint(bus_number, route_number, date, time, description):
 def makeTrainComplaint(complaint_number, date, time, description):
     try:
         mySQLConnection = mysql.connector.connect(
-            host='remotemysql.com', database='JVXasAeztf', user='JVXasAeztf', password='GPiI9x1zKK')
+            host=databasehost, database=database, user=databaseuser, password=databasepassword)
         cursor = mySQLConnection.cursor(buffered=True)
         sql_select_query = "INSERT INTO train_complaint (complaint_number,railwar_station,date,time,description) VALUES (%s ,%s,%s, %s,%s)"
         values = (complaint_number, railway_station, date, time, description)
