@@ -10,6 +10,7 @@ from nltk.corpus import stopwords
 from flask_cors import CORS
 import nltk
 from xgboost import XGBClassifier
+import os
 nltk.download('stopwords')
 
 
@@ -135,7 +136,7 @@ def getTrainFeesDetail(origin_station, destination_station):
 def getDistanceByBus(origin, destination):
     try:
         mySQLConnection = mysql.connector.connect(
-            host='remotemysql.com', database='JVXasAeztf', user='JVXasAeztf', password='GPiI9x1zKK')
+            host=os.environ.get('databasehost'), database=os.environ.get('database'), user=os.environ.get('databaseuser'), password=os.environ.get('databasepassword'))
         cursor = mySQLConnection.cursor(buffered=True)
         sql_select_query = "SELECT * FROM distance_by_bus WHERE origin=%s and destination=%s"
         location = (origin, destination)
