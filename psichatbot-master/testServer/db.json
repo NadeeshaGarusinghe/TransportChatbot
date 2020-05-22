@@ -1,0 +1,248 @@
+{
+  "messages": [
+    {
+      "id": "2020-04-23T14:10:41.750Z",
+      "userId": "1",
+      "message": "Hi",
+      "isBot": false
+    },
+    {
+      "id": "2020-04-23T19:40:41.775323",
+      "userId": 1,
+      "message": "Hello!",
+      "isBot": true
+    },
+    {
+      "id": "2020-04-23T14:10:56.878Z",
+      "userId": "1",
+      "message": "I want to activate the D99 package",
+      "isBot": false
+    },
+    {
+      "id": "2020-04-23T19:40:56.906281",
+      "userId": 1,
+      "message": "Okay, I'll activate D99 for you",
+      "isBot": true
+    },
+    {
+      "id": "2020-04-23T14:11:10.422Z",
+      "userId": "1",
+      "message": "I want to activate a package",
+      "isBot": false
+    },
+    {
+      "id": "2020-04-23T19:41:10.448123",
+      "userId": 1,
+      "message": "Which package do you want to activate?",
+      "isBot": true
+    },
+    {
+      "id": "2020-04-23T14:11:15.590Z",
+      "userId": "1",
+      "message": "D199",
+      "isBot": false
+    },
+    {
+      "id": "2020-04-23T19:41:15.614447",
+      "userId": 1,
+      "message": "Okay, I'll activate D199 for you",
+      "isBot": true
+    },
+    {
+      "id": "2020-04-23T14:11:26.733Z",
+      "userId": "1",
+      "message": "I want to activate a package",
+      "isBot": false
+    },
+    {
+      "id": "2020-04-23T19:41:26.763193",
+      "userId": 1,
+      "message": "Which package do you want to activate?",
+      "isBot": true
+    },
+    {
+      "id": "2020-04-23T14:11:40.911Z",
+      "userId": "1",
+      "message": "I want the D249 package",
+      "isBot": false
+    },
+    {
+      "id": "2020-04-23T19:41:40.939806",
+      "userId": 1,
+      "message": "Okay, I'll activate D249 for you",
+      "isBot": true
+    },
+    {
+      "id": "2020-04-23T14:12:23.134Z",
+      "userId": "1",
+      "message": "I want to change the package to the D199 package",
+      "isBot": false
+    },
+    {
+      "id": "2020-04-23T19:42:23.166938",
+      "userId": 1,
+      "message": "Okay, I'll change your package to D199",
+      "isBot": true
+    },
+    {
+      "id": "2020-04-23T14:12:37.415Z",
+      "userId": "1",
+      "message": "I want to change the package",
+      "isBot": false
+    },
+    {
+      "id": "2020-04-23T19:42:37.445055",
+      "userId": 1,
+      "message": "Which package do you want to change to?",
+      "isBot": true
+    },
+    {
+      "id": "2020-04-23T14:12:41.871Z",
+      "userId": "1",
+      "message": "D499",
+      "isBot": false
+    },
+    {
+      "id": "2020-04-23T19:42:41.895451",
+      "userId": 1,
+      "message": "Okay, I'll change your package to D499",
+      "isBot": true
+    },
+    {
+      "id": "2020-04-23T14:13:06.622Z",
+      "userId": "1",
+      "message": "I want to deactivate the package",
+      "isBot": false
+    },
+    {
+      "id": "2020-04-23T19:43:06.654618",
+      "userId": 1,
+      "message": "Are you sure you want to deactivate your package?",
+      "isBot": true
+    },
+    {
+      "id": "2020-04-23T14:13:10.271Z",
+      "userId": "1",
+      "message": "Yes",
+      "isBot": false
+    },
+    {
+      "id": "2020-04-23T19:43:10.295688",
+      "userId": 1,
+      "message": "Okay. I will deactivate the package",
+      "isBot": true
+    },
+    {
+      "id": "2020-04-23T14:13:32.621Z",
+      "userId": "1",
+      "message": "I don't have any signal in Colombo",
+      "isBot": false
+    },
+    {
+      "id": "2020-04-23T19:43:32.658998",
+      "userId": 1,
+      "message": "We will look into the loss of signal in Colombo. Thank you for staying with our network.",
+      "isBot": true
+    },
+    {
+      "id": "2020-04-23T14:13:54.549Z",
+      "userId": "1",
+      "message": "I don't have any signal",
+      "isBot": false
+    },
+    {
+      "id": "2020-04-23T19:43:54.584646",
+      "userId": 1,
+      "message": "Where did you face difficulties connecting to our network?",
+      "isBot": true
+    },
+    {
+      "id": "2020-04-23T14:13:58.645Z",
+      "userId": "1",
+      "message": "Kandy",
+      "isBot": false
+    },
+    {
+      "id": "2020-04-23T19:43:58.673658",
+      "userId": 1,
+      "message": "We will look into the loss of signal in Kandy. Thank you for staying with our network.",
+      "isBot": true
+    },
+    {
+      "id": "2020-04-23T14:14:05.189Z",
+      "userId": "1",
+      "message": "Thank you",
+      "isBot": false
+    },
+    {
+      "id": "2020-04-23T19:44:05.225307",
+      "userId": 1,
+      "message": "You're welcome. Is there anything else I can help you with?",
+      "isBot": true
+    },
+    {
+      "id": "2020-04-23T14:14:09.054Z",
+      "userId": "1",
+      "message": "No",
+      "isBot": false
+    },
+    {
+      "id": "2020-04-23T19:44:09.083829",
+      "userId": 1,
+      "message": "Goodbye",
+      "isBot": true
+    },
+    {
+      "id": "2020-04-23T14:14:13.142Z",
+      "userId": "1",
+      "message": "Bye",
+      "isBot": false
+    },
+    {
+      "id": "2020-04-23T19:44:13.179095",
+      "userId": 1,
+      "message": "Goodbye!",
+      "isBot": true
+    },
+    {
+      "id": "2020-04-24T11:46:36.582Z",
+      "userId": "1",
+      "message": "Hey",
+      "isBot": false
+    },
+    {
+      "id": "2020-04-24T17:16:36.659461",
+      "userId": 1,
+      "message": "I'm sorry, I didn't get that. Please try again.",
+      "isBot": true
+    },
+    {
+      "id": "2020-04-24T11:46:41.224Z",
+      "userId": "1",
+      "message": "Hi",
+      "isBot": false
+    },
+    {
+      "id": "2020-04-24T17:16:41.443732",
+      "userId": 1,
+      "message": "Good to see you again!",
+      "isBot": true
+    },
+    {
+      "id": "2020-04-24T11:51:31.339Z",
+      "userId": "1",
+      "message": "Hi",
+      "isBot": false
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "json-server --watch db.json",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
