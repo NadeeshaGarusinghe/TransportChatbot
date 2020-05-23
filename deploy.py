@@ -265,7 +265,7 @@ def getBusTimeDetail(origin, destination):
                     result1[i+1][3]+"-arrive at:"+result1[i+1][4]
                 if (i == 4):
                     break
-    result = result+"  "+result2
+    result = result+". "+result2
 
     return result
 
@@ -329,7 +329,7 @@ def getTrainTimeDetail(origin, destination):
                     result1[i+1][2]+"-train type:"+result1[i+1][5]+"***"
                 if (i == 4):
                     break
-    result = result+"----"+result2
+    result = result+". "+result2
     return result
 
 
