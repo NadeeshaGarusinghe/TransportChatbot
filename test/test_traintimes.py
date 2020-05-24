@@ -1,4 +1,4 @@
-from server1 import app
+from deploy import app
 import unittest
 
 
@@ -16,7 +16,7 @@ class FlaskTestClass(unittest.TestCase):
         tester = app.test_client(self)
         response = tester.get(
             '/traintimes', query_string=dict(origin='matara', destination='galle'))
-       self.assertIn(
+        self.assertIn(
             b'The next train is scheduled to depart at' or b'no train will run after this moment for today',response.data)
      
 

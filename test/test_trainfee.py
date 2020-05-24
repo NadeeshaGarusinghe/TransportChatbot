@@ -1,4 +1,4 @@
-from server1 import app
+from deploy import app
 import unittest
 
 
@@ -15,10 +15,10 @@ class FlaskTestClass(unittest.TestCase):
     def test_response(self):
         tester = app.test_client(self)
         response = tester.get('/trainfee', query_string=dict(
-            origin_station='Colombo Fort', destination_station='Maradana'))
+            origin_station='ColomboFort', destination_station='Maradana'))
         print(response.data)
         self.assertTrue(
-            b'From: Colombo Fort To: Maradana on track number 1,    1st class price is Rs: 40    2nd class price is Rs: 20    3rd class price is Rs: 10 ' in response.data)
+            b'From: ColomboFort To: Maradana on track number 1,    1st class price is Rs: 40    2nd class price is Rs: 20    3rd class price is Rs: 10 ' in response.data)
 
     # ensure response for empty inputs
     def test_empty_inputs(self):

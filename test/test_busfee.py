@@ -1,4 +1,4 @@
-from server1 import app
+from deploy import app
 import unittest
 
 
