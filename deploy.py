@@ -503,6 +503,7 @@ def predicttag():
         if (len(origin_dest)==2):
             completed=1
             result=origin_dest[0]+","+ origin_dest[1]
+            print (result)
             return jsonify({"result": result, "tag": str(tag), "completed": completed})
         
 
