@@ -96,6 +96,31 @@ def getBusFeesDetail(origin, destination):
     return result
 
 
+def getLocation(sent):
+
+    def extract_entity_names(t):
+        entity_names = []
+
+        if (hasattr(t, 'label') and t.label):
+            if t.label() == "NE":
+                entity_names.append(''.join([child[0] for child in t]))
+            else:
+                for child in t:
+                    entity_names.extend(extract_entity_names(child))
+
+        return entity_names
+
+    sentences = nltk.sent_tokenize(sent)
+    tokenized_sent = [nltk.word_tokenize(sentence) for sentence in sentences]
+    tagged_sentences = [nltk.pos_tag(sentence) for sentence in tokenized_sent]
+    chunked_sentences = nltk.ne_chunk_sents(tagged_sentences, binary=True)
+
+    entities = []
+    for tree in chunked_sentences:
+        entities.extend(extract_entity_names(tree))
+
+    return entities
+
 # get train fees details
 def getTrainFeesDetail(origin_station, destination_station):
     try:
@@ -467,6 +492,16 @@ def predicttag():
         tag = content['tag']
 
     completed = 0
+
+    if (tag==1 or tag==3 or tag==9 or tag==11):
+        origin_dest=getLocation(content['msg'])
+        if (len(origin_dest)==2):
+            completed=1
+            result=origin_dest[0]+","+ origin_dest[1]
+            return jsonify({"result": result, "tag": str(tag), "completed": completed})
+        
+
+
     if len(Quesions[tag])-1 == content['index']:
         completed = 1
     return jsonify({"result": Quesions[tag][content['index']], "tag": str(tag), "completed": completed})
