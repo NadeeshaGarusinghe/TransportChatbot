@@ -13,6 +13,7 @@ from xgboost import XGBClassifier
 import os
 nltk.download('stopwords')
 nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
 
 
 REPLACE_BY_SPACE_RE = re.compile('[/(){}\[\]\|@,;]')
