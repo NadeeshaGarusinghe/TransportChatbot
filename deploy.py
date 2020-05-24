@@ -413,7 +413,7 @@ def makeTrainComplaint(complaint_number, railway_station,date, time, description
         mySQLConnection.commit()
 
     except mysql.connector.Error as error:
-        result = ("Failed to make the complaint. Invalid date/time")
+        result = ("Failed to make the complaint. Invalid date/time".format(error))
         return result
     finally:
         if (mySQLConnection.is_connected()):
