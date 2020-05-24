@@ -495,9 +495,11 @@ def predicttag():
         tag = content['tag']
 
     completed = 0
-
+    print (tag)
     if (tag==1 or tag==3 or tag==9 or tag==11):
+        print (content['msg'])
         origin_dest=getLocation(content['msg'])
+        print (origin_dest)
         if (len(origin_dest)==2):
             completed=1
             result=origin_dest[0]+","+ origin_dest[1]
