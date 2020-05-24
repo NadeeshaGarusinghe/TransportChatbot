@@ -12,6 +12,7 @@ import nltk
 from xgboost import XGBClassifier
 import os
 nltk.download('stopwords')
+nltk.download('punkt')
 
 
 REPLACE_BY_SPACE_RE = re.compile('[/(){}\[\]\|@,;]')
