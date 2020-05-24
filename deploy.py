@@ -200,8 +200,8 @@ def getDistanceByTrain(origin, destination):
     else:
         result = ""
 
-        result = result+"From: "+data[0] + "  "
-        result = result+"To: "+data[2]+"  "
+        result = result+"From: "+origin + "  "
+        result = result+"To: "+destination+"  "
         result = result+"the distance from train is " + \
             data[3]+"km  "+" on the track  "+data[1]
     return result
