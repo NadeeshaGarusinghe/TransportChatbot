@@ -407,7 +407,7 @@ def makeTrainComplaint(complaint_number, date, time, description):
         mySQLConnection = mysql.connector.connect(
             host=databasehost, database=database, user=databaseuser, password=databasepassword)
         cursor = mySQLConnection.cursor(buffered=True)
-        sql_select_query = "INSERT INTO train_complaint (complaint_number,railwar_station,date,time,description) VALUES (%s ,%s,%s, %s,%s)"
+        sql_select_query = "INSERT INTO train_complaint (complaint_number,railway_station,date,time,description) VALUES (%s ,%s,%s, %s,%s)"
         values = (complaint_number, railway_station, date, time, description)
         cursor.execute(sql_select_query, values)
         mySQLConnection.commit()
