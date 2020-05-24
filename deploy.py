@@ -576,7 +576,7 @@ def traincomplaint():
     time = content['time']
     description = content['description']
 
-    result = makeTrainComplaint(complaint_number, date, time, description)
+    result = makeTrainComplaint(complaint_number,railway_station, date, time, description)
     return jsonify({"result": result})
 
 if __name__ == '__main__':
