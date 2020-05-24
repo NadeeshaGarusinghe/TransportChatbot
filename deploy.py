@@ -402,7 +402,7 @@ def makeBusComplaint(bus_number, route_number, date, time, description):
     return result
 
 
-def makeTrainComplaint(complaint_number, date, time, description):
+def makeTrainComplaint(complaint_number, railway_station,date, time, description):
     try:
         mySQLConnection = mysql.connector.connect(
             host=databasehost, database=database, user=databaseuser, password=databasepassword)
