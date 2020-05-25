@@ -348,6 +348,7 @@ def getTrainTimeDetail(origin, destination):
         if (len(result1) == 1):
             result2 = "Here are some other train times from "+origin+" to "+destination
             for i in range(4):
+                print (result2)
                 result2 = result2+"\n" + \
                     allData[i][2]+"-train type:"+allData[i][5]
         else:
