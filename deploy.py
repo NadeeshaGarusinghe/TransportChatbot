@@ -336,7 +336,7 @@ def getTrainTimeDetail(origin, destination):
                 result1.append(row)
     if (len(result1)) == 0:
         result = "No train will run after this moment for today"
-        result2 = "Here are some train times from "+origin+" to "+destination+
+        result2 = "Here are some train times from "+origin+" to "+destination
         for i in range(4):
             result2 = result2+"\n" + \
                 allData[i][2]+"-train type:"+allData[i][5]
@@ -346,7 +346,7 @@ def getTrainTimeDetail(origin, destination):
             result1[0][2] + " from " + origin + " to "+destination + " and the train type is  " + \
             result1[0][5] + ". This train is available on "+result1[0][4]+". "
         if (len(result1) == 1):
-            result2 = "Here are some other train times from "+origin+" to "+destination+"  *"
+            result2 = "Here are some other train times from "+origin+" to "+destination
             for i in range(4):
                 result2 = result2+"\n" + \
                     allData[i][2]+"-train type:"+allData[i][5]
