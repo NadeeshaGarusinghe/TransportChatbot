@@ -467,7 +467,7 @@ def index():
     return '<h1>HIIIIIIIII</h1>'
 
 
-@app.route('/predicttag', methods=['POST'])
+@app.route('/transportation', methods=['POST'])
 def predicttag():
     content = request.json
     tag = 0
