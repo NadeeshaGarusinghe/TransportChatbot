@@ -289,8 +289,7 @@ def getBusTimeDetail(origin, destination):
                 origin+" to "+destination
 
             for i in range(len(result1)-1):
-                result2 = result2+"**depart at:" + \
-                    result1[i+1][3]+"-arrive at:"+result1[i+1][4]
+                result2 = result2+"\n**depart at:" + result1[i+1][3]+"-arrive at:"+result1[i+1][4]
                 if (i == 4):
                     break
     result = result+". "+result2
