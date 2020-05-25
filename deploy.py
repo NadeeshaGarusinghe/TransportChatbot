@@ -55,6 +55,32 @@ database=os.environ.get('database')
 databaseuser=os.environ.get('databaseuser')
 databasepassword=os.environ.get('databasepassword')
 
+
+def getLocation(sent):
+
+    def extract_entity_names(t):
+        entity_names = []
+
+        if (hasattr(t, 'label') and t.label):
+            if t.label() == "NE":
+                entity_names.append(''.join([child[0] for child in t]))
+            else:
+                for child in t:
+                    entity_names.extend(extract_entity_names(child))
+
+        return entity_names
+
+    sentences = nltk.sent_tokenize(sent)
+    tokenized_sent = [nltk.word_tokenize(sentence) for sentence in sentences]
+    tagged_sentences = [nltk.pos_tag(sentence) for sentence in tokenized_sent]
+    chunked_sentences = nltk.ne_chunk_sents(tagged_sentences, binary=True)
+
+    entities = []
+    for tree in chunked_sentences:
+        entities.extend(extract_entity_names(tree))
+
+    return entities
+
 # get bus fees details
 def getBusFeesDetail(origin, destination):
     try:
@@ -87,42 +113,18 @@ def getBusFeesDetail(origin, destination):
 
         result = result+"From: "+data[1] + " "
         result = result+"To: "+data[2]+" "
-        result = result+"Normal bus fees is Rs: "+data[3]+" "
+        result = result+"\nNormal bus fees is Rs: "+data[3]+" "
 
         if (data[4] != '--'):
-            result = result+'semi luxary bus fees is Rs: '
+            result = result+'\nsemi luxary bus fees is Rs: '
             result = result + data[4]+" "
 
         if (data[5] != '--'):
-            result = result+"air conditioned bus fees is Rs: "
+            result = result+"\nair conditioned bus fees is Rs: "
             result = result+data[5]+" "
     return result
 
 
-def getLocation(sent):
-
-    def extract_entity_names(t):
-        entity_names = []
-
-        if (hasattr(t, 'label') and t.label):
-            if t.label() == "NE":
-                entity_names.append(''.join([child[0] for child in t]))
-            else:
-                for child in t:
-                    entity_names.extend(extract_entity_names(child))
-
-        return entity_names
-
-    sentences = nltk.sent_tokenize(sent)
-    tokenized_sent = [nltk.word_tokenize(sentence) for sentence in sentences]
-    tagged_sentences = [nltk.pos_tag(sentence) for sentence in tokenized_sent]
-    chunked_sentences = nltk.ne_chunk_sents(tagged_sentences, binary=True)
-
-    entities = []
-    for tree in chunked_sentences:
-        entities.extend(extract_entity_names(tree))
-
-    return entities
 
 # get train fees details
 def getTrainFeesDetail(origin_station, destination_station):
@@ -156,9 +158,9 @@ def getTrainFeesDetail(origin_station, destination_station):
         result = result+"From: "+data[1] + " "
         result = result+"To: "+data[2]+" "
         result = result+"on track number "+data[0]+",    "
-        result = result+"1st class price is Rs: "+data[3]+"    "
-        result = result+"2nd class price is Rs: "+data[4]+"    "
-        result = result+"3rd class price is Rs: "+data[5]+" "
+        result = result+"\n1st class price is Rs: "+data[3]+"    "
+        result = result+"\n2nd class price is Rs: "+data[4]+"    "
+        result = result+"\n3rd class price is Rs: "+data[5]+" "
     return result
 
 # get distance from bus
@@ -273,7 +275,7 @@ def getBusTimeDetail(origin, destination):
         result = "no bus will run after this moment for today"
         result2 = "Here are some bus times from "+origin+" to "+destination+"  *"
         for i in range(4):
-            result2 = result2+"**depart at:" + \
+            result2 = result2+"\ndepart at:" + \
                 allData[i][3]+"-arrive at:"+allData[i][4]
     else:
         result = "The next bus is scheduled to depart at " + \
@@ -282,14 +284,14 @@ def getBusTimeDetail(origin, destination):
         if (len(result1) == 1):
             result2 = "Here are some bus times from "+origin+" to "+destination+"  *"
             for i in range(4):
-                result2 = result2+"**depart at:" + \
+                result2 = result2+"\ndepart at:" + \
                     allData[i][3]+"-arrive at:"+allData[i][4]
         else:
             result2 = "  After that bus, following times also have the buses from  " + \
                 origin+" to "+destination
 
             for i in range(len(result1)-1):
-                result2 = result2+"\n**depart at:" + result1[i+1][3]+"-arrive at:"+result1[i+1][4]
+                result2 = result2+"\ndepart at:" + result1[i+1][3]+"-arrive at:"+result1[i+1][4]
                 if (i == 4):
                     break
     result = result+". "+result2
@@ -334,10 +336,10 @@ def getTrainTimeDetail(origin, destination):
                 result1.append(row)
     if (len(result1)) == 0:
         result = "No train will run after this moment for today"
-        result2 = "Here are some train times from "+origin+" to "+destination+"  *"
+        result2 = "Here are some train times from "+origin+" to "+destination+
         for i in range(4):
-            result2 = result2+"**" + \
-                allData[i][2]+"-train type:"+allData[i][5]+"***"
+            result2 = result2+"\n" + \
+                allData[i][2]+"-train type:"+allData[i][5]
 
     else:
         result = "The next train is scheduled to depart at " + \
@@ -346,14 +348,14 @@ def getTrainTimeDetail(origin, destination):
         if (len(result1) == 1):
             result2 = "Here are some other train times from "+origin+" to "+destination+"  *"
             for i in range(4):
-                result2 = result2+"**" + \
-                    allData[i][2]+"-train type:"+allData[i][5]+"***"
+                result2 = result2+"\n" + \
+                    allData[i][2]+"-train type:"+allData[i][5]
         else:
             result2 = "After that train, following times also have the trains from  " + \
-                origin+" to "+destination+"  *"
+                origin+" to "+destination
             for i in range(len(result1)-1):
-                result2 = result2+"**" + \
-                    result1[i+1][2]+"-train type:"+result1[i+1][5]+"***"
+                result2 = result2+"\n" + \
+                    result1[i+1][2]+"-train type:"+result1[i+1][5]
                 if (i == 4):
                     break
     result = result+". "+result2
