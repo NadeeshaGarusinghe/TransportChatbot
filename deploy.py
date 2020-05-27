@@ -344,13 +344,14 @@ def getTrainTimeDetail(origin, destination):
     else:
         result = "The next train is scheduled to depart at " + \
             result1[0][2] + " from " + origin + " to "+destination + " and the train type is  " + \
-            result1[0][5] + ". This train is available on "+result1[0][4]+". "
+            result1[0][5] + ". This train is available on "+result1[0][4]+" "
         if (len(result1) == 1):
-            result2 = "Here are some other train times from "+origin+" to "+destination
-            for i in range(4):
-                print (result2)
-                result2 = result2+"\n" + \
-                    allData[i][2]+"-train type:"+allData[i][5]
+            if (len(allData)>1):
+                result2 = "Here are some other train times from "+origin+" to "+destination
+                for i in range(len(allData)-1):
+                    print (result2)
+                    result2 = result2+"\n" + \
+                        allData[i][2]+"-train type:"+allData[i][5]
         else:
             result2 = "After that train, following times also have the trains from  " + \
                 origin+" to "+destination
