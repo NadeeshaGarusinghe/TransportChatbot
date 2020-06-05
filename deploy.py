@@ -491,7 +491,7 @@ def predicttag():
         x = [text_prepare(content['msg'])]
         y = vectorizer.transform(x)
         p = model.predict_proba(y)[0]
-        if (max(p) > 0.5):
+        if (max(p) > 0.4):
             p = np.where(p == max(p))
             tag = p[0][0]
         if (tag == 6):
