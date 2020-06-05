@@ -12,10 +12,7 @@ import nltk
 from xgboost import XGBClassifier
 import os
 nltk.download('stopwords')
-nltk.download('punkt')
-nltk.download('averaged_perceptron_tagger')
-nltk.download('maxent_ne_chunker')
-nltk.download('words')
+
 
 REPLACE_BY_SPACE_RE = re.compile('[/(){}\[\]\|@,;]')
 BAD_SYMBOLS_RE = re.compile('[^0-9a-z #+_]')
@@ -55,32 +52,6 @@ database=os.environ.get('database')
 databaseuser=os.environ.get('databaseuser')
 databasepassword=os.environ.get('databasepassword')
 
-
-def getLocation(sent):
-
-    def extract_entity_names(t):
-        entity_names = []
-
-        if (hasattr(t, 'label') and t.label):
-            if t.label() == "NE":
-                entity_names.append(''.join([child[0] for child in t]))
-            else:
-                for child in t:
-                    entity_names.extend(extract_entity_names(child))
-
-        return entity_names
-
-    sentences = nltk.sent_tokenize(sent)
-    tokenized_sent = [nltk.word_tokenize(sentence) for sentence in sentences]
-    tagged_sentences = [nltk.pos_tag(sentence) for sentence in tokenized_sent]
-    chunked_sentences = nltk.ne_chunk_sents(tagged_sentences, binary=True)
-
-    entities = []
-    for tree in chunked_sentences:
-        entities.extend(extract_entity_names(tree))
-
-    return entities
-
 # get bus fees details
 def getBusFeesDetail(origin, destination):
     try:
@@ -113,17 +84,16 @@ def getBusFeesDetail(origin, destination):
 
         result = result+"From: "+data[1] + " "
         result = result+"To: "+data[2]+" "
-        result = result+"\nNormal bus fees is Rs: "+data[3]+" "
+        result = result+"Normal bus fees is Rs: "+data[3]+" "
 
         if (data[4] != '--'):
-            result = result+'\nsemi luxary bus fees is Rs: '
+            result = result+'semi luxary bus fees is Rs: '
             result = result + data[4]+" "
 
         if (data[5] != '--'):
-            result = result+"\nair conditioned bus fees is Rs: "
+            result = result+"air conditioned bus fees is Rs: "
             result = result+data[5]+" "
     return result
-
 
 
 # get train fees details
@@ -158,9 +128,9 @@ def getTrainFeesDetail(origin_station, destination_station):
         result = result+"From: "+data[1] + " "
         result = result+"To: "+data[2]+" "
         result = result+"on track number "+data[0]+",    "
-        result = result+"\n1st class price is Rs: "+data[3]+"    "
-        result = result+"\n2nd class price is Rs: "+data[4]+"    "
-        result = result+"\n3rd class price is Rs: "+data[5]+" "
+        result = result+"1st class price is Rs: "+data[3]+"    "
+        result = result+"2nd class price is Rs: "+data[4]+"    "
+        result = result+"3rd class price is Rs: "+data[5]+" "
     return result
 
 # get distance from bus
@@ -230,8 +200,8 @@ def getDistanceByTrain(origin, destination):
     else:
         result = ""
 
-        result = result+"From: "+origin + "  "
-        result = result+"To: "+destination+"  "
+        result = result+"From: "+data[0] + "  "
+        result = result+"To: "+data[2]+"  "
         result = result+"the distance from train is " + \
             data[3]+"km  "+" on the track  "+data[1]
     return result
@@ -275,7 +245,7 @@ def getBusTimeDetail(origin, destination):
         result = "no bus will run after this moment for today"
         result2 = "Here are some bus times from "+origin+" to "+destination+"  *"
         for i in range(4):
-            result2 = result2+"\ndepart at:" + \
+            result2 = result2+"**depart at:" + \
                 allData[i][3]+"-arrive at:"+allData[i][4]
     else:
         result = "The next bus is scheduled to depart at " + \
@@ -284,17 +254,18 @@ def getBusTimeDetail(origin, destination):
         if (len(result1) == 1):
             result2 = "Here are some bus times from "+origin+" to "+destination+"  *"
             for i in range(4):
-                result2 = result2+"\ndepart at:" + \
+                result2 = result2+"**depart at:" + \
                     allData[i][3]+"-arrive at:"+allData[i][4]
         else:
             result2 = "  After that bus, following times also have the buses from  " + \
                 origin+" to "+destination
 
             for i in range(len(result1)-1):
-                result2 = result2+"\ndepart at:" + result1[i+1][3]+"-arrive at:"+result1[i+1][4]
+                result2 = result2+"**depart at:" + \
+                    result1[i+1][3]+"-arrive at:"+result1[i+1][4]
                 if (i == 4):
                     break
-    result = result+". "+result2
+    result = result+"  "+result2
 
     return result
 
@@ -336,43 +307,46 @@ def getTrainTimeDetail(origin, destination):
                 result1.append(row)
     if (len(result1)) == 0:
         result = "No train will run after this moment for today"
-        result2 = "Here are some train times from "+origin+" to "+destination
+        result2 = "Here are some train times from "+origin+" to "+destination+"  *"
         for i in range(4):
-            result2 = result2+"\n" + \
-                allData[i][2]+"-train type:"+allData[i][5]
+            result2 = result2+"**" + \
+                allData[i][2]+"-train type:"+allData[i][5]+"***"
 
     else:
         result = "The next train is scheduled to depart at " + \
             result1[0][2] + " from " + origin + " to "+destination + " and the train type is  " + \
-            result1[0][5] + ". This train is available on "+result1[0][4]+" "
+            result1[0][5] + ". This train is available on "+result1[0][4]+". "
         if (len(result1) == 1):
-            result2=""
-            if (len(allData)>1):
-                result2 = "Here are some other train times from "+origin+" to "+destination
-                for i in range(len(allData)-1):
-                    print (result2)
-                    result2 = result2+"\n" + \
-                        allData[i][2]+"-train type:"+allData[i][5]
+            result2 = "Here are some other train times from "+origin+" to "+destination+"  *"
+            for i in range(4):
+                result2 = result2+"**" + \
+                    allData[i][2]+"-train type:"+allData[i][5]+"***"
         else:
             result2 = "After that train, following times also have the trains from  " + \
-                origin+" to "+destination
+                origin+" to "+destination+"  *"
             for i in range(len(result1)-1):
-                result2 = result2+"\n" + \
-                    result1[i+1][2]+"-train type:"+result1[i+1][5]
+                result2 = result2+"**" + \
+                    result1[i+1][2]+"-train type:"+result1[i+1][5]+"***"
                 if (i == 4):
                     break
-    result = result+". "+result2
+    result = result+"----"+result2
     return result
 
 
 def bookBusTicket(origin, destination, date, time, bus_type):
     try:
-        mySQLConnection = mysql.connector.connect(host=databasehost, database=database, user=databaseuser, password=databasepassword)
-        cursor = mySQLConnection.cursor(buffered=True)
-        sql_select_query = "INSERT INTO bus_ticket_booking (origin,destination,date,time,bus_type) VALUES (%s ,%s, %s,%s,%s)"
-        values = (origin, destination, date, time, bus_type)
-        cursor.execute(sql_select_query, values)
-        mySQLConnection.commit()
+        now = datetime.datetime.utcnow()+datetime.timedelta(hours=5.5)
+
+        if (now.date()<date):
+            mySQLConnection = mysql.connector.connect(
+                host=databasehost, database=database, user=databaseuser, password=databasepassword)
+            cursor = mySQLConnection.cursor(buffered=True)
+            sql_select_query = "INSERT INTO bus_ticket_booking (origin,destination,date,time,bus_type) VALUES (%s ,%s, %s,%s,%s)"
+            values = (origin, destination, date, time, bus_type)
+            cursor.execute(sql_select_query, values)
+            mySQLConnection.commit()
+        else:
+            result=("Failed to add the booking.you entered a previous date.")
 
     except mysql.connector.Error as error:
         result = ("Failed to add the booking. Invalid date/time")
@@ -433,7 +407,7 @@ def makeBusComplaint(bus_number, route_number, date, time, description):
     return result
 
 
-def makeTrainComplaint(complaint_number, railway_station,date, time, description):
+def makeTrainComplaint(complaint_number, date, time, description):
     try:
         mySQLConnection = mysql.connector.connect(
             host=databasehost, database=database, user=databaseuser, password=databasepassword)
@@ -444,7 +418,7 @@ def makeTrainComplaint(complaint_number, railway_station,date, time, description
         mySQLConnection.commit()
 
     except mysql.connector.Error as error:
-        result = ("Failed to make the complaint. Invalid date/time: {}".format(error))
+        result = ("Failed to make the complaint. Invalid date/time")
         return result
     finally:
         if (mySQLConnection.is_connected()):
@@ -462,7 +436,7 @@ def makeTrainComplaint(complaint_number, railway_station,date, time, description
 app = Flask(__name__)
 CORS(app)
 
-Quesions = [["what is the bus number?", "what is the route number?", "what is the incident date(format 'YYYY-MM-DD')?", "what is the incident time('hh:mm:ss')?", "please give a brief description about the incident", "Are you sure you want to make this complaint? (y/n)", "*"], ["what is the origin", "what is the destination", "*"], ["what is the origin", "what is the destination","when will you hope to travel('YYYY-MM-DD')", "time ('hh:mm:ss')?", "bus type?(normal, semi luxary, luxary, super luxary)", "Add booking?(y/n)", "*"], ["what is the origin", "what is the destination", "*"], ["from bus or train?","please provide the origin", "what is the destination", "*"], ["Hello, how can I help you?", "*"], ["Bye. See You Again!", "*"], ["I can guide you through\n1)bus and train schedule details\n2)Offering support to book trains and buses\n3)making complaints to the authorities \n4)show you bus fees and train fees details \n5)provide distance details", "*"], ["please choose the number from below that related to your complaint!\n1)Dirty railway station\n2)Dirty washrooms in the compartment\n3)Inappropriate behavior of the train staff\n4)Demand of bribery by the railway officials\n5)Unavailability of water in the train and station\n6)Not getting refund after the Cancellation of ticket\n7)Theft incidents in the compartment\n8)Poor quality of food\n", "what is the railway station related to the incident?","what is the incident date('YYYY-MM-DD')", "at what time this happened?", "please give a brief description about the incident", "Are you sure you want to make this complaint? (y/n)", "*"], ["what is the origin station", "what is the destination station", "*"], ["what is the origin station", "what is the destination station","when will you hope to travel('YYYY-MM-DD')", "time('hh:mm:ss')?", "seat type?(first class, second class, third class)", "Add booking?(y/n)", "*"], ["from where you need to know the next train time","to where you need to know the next train time", "*"]]
+Quesions = [["what is the bus number?", "what is the route number?", "what is the incident date(format 'YYYY-MM-DD')?", "what is the incident time('hh:mm:ss')?", "please give a brief description about the incident", "Are you sure you want to make this complaint? (y/n)", "*"], ["what is the origin", "what is the destination", "*"], ["what is the origin", "what is the destination","when will you hope to travel('YYYY-MM-DD')", "time ('hh:mm:ss')?", "bus type?(normal, semi luxary, luxary, super luxary)", "Add booking?(y/n)", "*"], ["what is the origin", "what is the destination", "*"], ["from bus or train?","please provide the origin", "what is the destination", "*"], ["Hello, how can I help you?", "*"], ["Bye. See You Again!", "*"], ["I can guide you through\n1)bus and train schedule details\n2)Offering support to book trains and buses\n3)making complaints to the authorities \n4)show you bus fees and train fees for a particular destination", "*"], ["please choose the number from below that related to your complaint!\n1)Dirty railway station\n2)Dirty washrooms in the compartment\n3)Inappropriate behavior of the train staff\n4)Demand of bribery by the railway officials\n5)Unavailability of water in the train and station\n6)Not getting refund after the Cancellation of ticket\n7)Theft incidents in the compartment\n8)Poor quality of food\n", "what is the railway station related to the incident?","what is the incident date('YYYY-MM-DD')", "at what time this happened?", "please give a brief description about the incident", "Are you sure you want to make this complaint? (y/n)", "*"], ["what is the origin station", "what is the destination station", "*"], ["what is the origin station", "what is the destination station","when will you hope to travel('YYYY-MM-DD')", "time('hh:mm:ss')?", "seat type?(first class, second class, third class)", "Add booking?(y/n)", "*"], ["from where you need to know the next train time","to where you need to know the next train time", "*"]]
 
 
 @app.route('/')
@@ -470,7 +444,7 @@ def index():
     return '<h1>HIIIIIIIII</h1>'
 
 
-@app.route('/transportation', methods=['POST'])
+@app.route('/predicttag', methods=['POST'])
 def predicttag():
     content = request.json
     tag = 0
@@ -490,7 +464,7 @@ def predicttag():
         x = [text_prepare(content['msg'])]
         y = vectorizer.transform(x)
         p = model.predict_proba(y)[0]
-        if (max(p) > 0.4):
+        if (max(p) > 0.5):
             p = np.where(p == max(p))
             tag = p[0][0]
         if (tag == 6):
@@ -498,19 +472,6 @@ def predicttag():
         tag = content['tag']
 
     completed = 0
-    print (tag)
-    if (tag==1 or tag==3 or tag==9 or tag==11):
-        print (content['msg'])
-        origin_dest=getLocation(content['msg'])
-        print (origin_dest)
-        if (len(origin_dest)==2):
-            completed=1
-            result=origin_dest[0]+","+ origin_dest[1]
-            print (result)
-            return jsonify({"result": result, "tag": str(tag), "completed": completed})
-        
-
-
     if len(Quesions[tag])-1 == content['index']:
         completed = 1
     return jsonify({"result": Quesions[tag][content['index']], "tag": str(tag), "completed": completed})
@@ -620,7 +581,7 @@ def traincomplaint():
     time = content['time']
     description = content['description']
 
-    result = makeTrainComplaint(complaint_number,railway_station, date, time, description)
+    result = makeTrainComplaint(complaint_number, railway_station,date, time, description)
     return jsonify({"result": result})
 
 if __name__ == '__main__':
