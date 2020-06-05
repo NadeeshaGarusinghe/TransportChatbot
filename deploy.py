@@ -368,9 +368,6 @@ def getTrainTimeDetail(origin, destination):
 def bookBusTicket(origin, destination, date, time, bus_type):
     try:
         try:
-        now = datetime.datetime.utcnow()+datetime.timedelta(hours=5.5)
-
-        if (now.date()<date):
             mySQLConnection = mysql.connector.connect(
                 host=databasehost, database=database, user=databaseuser, password=databasepassword)
             cursor = mySQLConnection.cursor(buffered=True)
@@ -378,8 +375,6 @@ def bookBusTicket(origin, destination, date, time, bus_type):
             values = (origin, destination, date, time, bus_type)
             cursor.execute(sql_select_query, values)
             mySQLConnection.commit()
-        else:
-            result=("Failed to add the booking.you entered a previous date.")
 
     except mysql.connector.Error as error:
         result = ("Failed to add the booking. Invalid date/time")
