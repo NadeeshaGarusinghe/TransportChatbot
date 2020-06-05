@@ -367,8 +367,7 @@ def getTrainTimeDetail(origin, destination):
 
 def bookBusTicket(origin, destination, date, time, bus_type):
     try:
-        mySQLConnection = mysql.connector.connect(
-                host=databasehost, database=database, user=databaseuser, password=databasepassword)
+        mySQLConnection = mysql.connector.connect(host=databasehost, database=database, user=databaseuser, password=databasepassword)
         cursor = mySQLConnection.cursor(buffered=True)
         sql_select_query = "INSERT INTO bus_ticket_booking (origin,destination,date,time,bus_type) VALUES (%s ,%s, %s,%s,%s)"
         values = (origin, destination, date, time, bus_type)
