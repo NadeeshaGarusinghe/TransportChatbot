@@ -272,7 +272,7 @@ def getBusTimeDetail(origin, destination):
             if (r > time):
                 result1.append(row)
     if (len(result1)) == 0:
-        result = "no bus will run after this moment for today"
+        result = "No bus will run after this moment for today"
         result2 = "Here are some bus times from "+origin+" to "+destination
         for i in range(4):
             result2 = result2+"\ndepart at:" + \
