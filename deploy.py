@@ -337,7 +337,11 @@ def getTrainTimeDetail(origin, destination):
     if (len(result1)) == 0:
         result = "No train will run after this moment for today"
         result2 = "Here are some train times from "+origin+" to "+destination
-        for i in range(4):
+        if (len(allData)<5):
+            size=len(allData)
+        else:
+            size=4
+        for i in range(size):
             result2 = result2+"\n" + \
                 allData[i][2]+"-train type:"+allData[i][5]
 
