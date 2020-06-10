@@ -280,7 +280,7 @@ def getBusTimeDetail(origin, destination):
     else:
         result = "The next bus is scheduled to depart at " + \
             result1[0][3] + " from " + origin + " to "+destination + \
-            " and it reach to the destination at "+result1[0][4]
+            " and it will reach to the destination at "+result1[0][4]
         if (len(result1) == 1):
             result2 = "Here are some bus times from "+origin+" to "+destination
             if (len(allData)<4):
