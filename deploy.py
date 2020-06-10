@@ -464,9 +464,54 @@ def makeTrainComplaint(complaint_number, railway_station,date, time, description
         result = "i will send a report to authority regarding the given information."
     return result
 
+def write_message(id,user_id,message,is_bot,date_time):
+    try:
+        mySQLConnection = mysql.connector.connect(host=databasehost, database=database, user=databaseuser, password=databasepassword)
+        cursor = mySQLConnection.cursor(buffered=True)
+        sql_query="INSERT into transport_chatbot_messages (id,user_id,message,isBot,date_time) VALUES (%s,%s,%s,%s,%s)"
+        values=(id,user_id,message,is_bot,date_time)
+        cursor.execute(sql_query, values)
+        mySQLConnection.commit()
+    except mysql.connector.Error as error:
+        result = ("Failed : {}".format(error))
+        return result
+    finally:
+        if (mySQLConnection.is_connected()):
+            cursor.close()
+            mySQLConnection.close()
+            print("MySQL connection is closed")
+
+def get_user_messages(user_id):
+    try:
+        mySQLConnection = mysql.connector.connect(host=databasehost, database=database, user=databaseuser, password=databasepassword)
+        cursor = mySQLConnection.cursor(buffered=True)
+        messages="SELECT * FROM (SELECT * FROM transport_chatbot_messages WHERE user_id=%s ORDER BY id DESC LIMIT 20) sub ORDER BY id ASC"
+        values=(user_id)
+        cursor.execute(messages, values)
+        mySQLConnection.commit()
 
 
+        for message in messages:
+            if message["isBot"]==0:
+                message["isBot"]=False
+            elif message["isBot"]==1:
+                message["isBot"]=True
+        messages_dict={"messages":messages}
+        return messages_dict
 
+    except mysql.connector.Error as error:
+        result = ("Failed : {}".format(error))
+        return result
+    finally:
+        if (mySQLConnection.is_connected()):
+            cursor.close()
+            mySQLConnection.close()
+            print("MySQL connection is closed")
+
+ident = json.dumps(datetime.datetime.utcnow(),default=date_handler).strip('"')
+#write chatbot reply to database
+write_message(ident,userId,reply,True,datetime.datetime.now())
+return jsonify({"userId":userId,"id":ident,"message":reply,"isBot":True,"completed": 1})
 
 app = Flask(__name__)
 CORS(app)
@@ -631,6 +676,11 @@ def traincomplaint():
 
     result = makeTrainComplaint(complaint_number,railway_station, date, time, description)
     return jsonify({"result": result})
+
+@app.route('transportation/messages/<user_id>',methods=["GET"])
+def getMessages(user_id):
+    print (jsonify(get_user_messages(user_id)))
+    return jsonify(get_user_messages(user_id)),200
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
