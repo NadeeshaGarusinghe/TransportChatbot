@@ -695,7 +695,7 @@ def traincomplaint():
     result = makeTrainComplaint(complaint_number,railway_station, date, time, description)
     return jsonify({"result": result})
 
-@app.route('transportation/messages/<user_id>',methods=["GET"])
+@app.route('/transportation/messages/<user_id>',methods=["GET"])
 def getMessages(user_id):
     print (jsonify(get_user_messages(user_id)))
     return jsonify(get_user_messages(user_id)),200
