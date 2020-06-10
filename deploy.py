@@ -508,10 +508,7 @@ def get_user_messages(user_id):
             mySQLConnection.close()
             print("MySQL connection is closed")
 
-ident = json.dumps(datetime.datetime.utcnow(),default=date_handler).strip('"')
-#write chatbot reply to database
-write_message(ident,userId,reply,True,datetime.datetime.now())
-return jsonify({"userId":userId,"id":ident,"message":reply,"isBot":True,"completed": 1})
+
 
 app = Flask(__name__)
 CORS(app)
@@ -577,6 +574,9 @@ def busfee():
     destination = content['destination']
 
     result = getBusFeesDetail(origin, destination)
+    ident = json.dumps(datetime.datetime.utcnow(),default=date_handler).strip('"')
+    #write chatbot reply to database
+    write_message(ident,userId,result,True,datetime.datetime.now())
     return jsonify({"result": result})
 
 
@@ -587,6 +587,9 @@ def trainfee():
     destination_station = content['destination_station']
 
     result = getTrainFeesDetail(origin_station, destination_station)
+    ident = json.dumps(datetime.datetime.utcnow(),default=date_handler).strip('"')
+    #write chatbot reply to database
+    write_message(ident,userId,result,True,datetime.datetime.now())
     return jsonify({"result": result})
 
 
@@ -602,6 +605,9 @@ def distance():
 
     else:
         result = getDistanceByTrain(origin, destination)
+    ident = json.dumps(datetime.datetime.utcnow(),default=date_handler).strip('"')
+    #write chatbot reply to database
+    write_message(ident,userId,result,True,datetime.datetime.now())
     return jsonify({"result": result})
 
 
@@ -612,6 +618,9 @@ def bustimes():
     destination = content['destination']
 
     result = getBusTimeDetail(origin, destination)
+    ident = json.dumps(datetime.datetime.utcnow(),default=date_handler).strip('"')
+    #write chatbot reply to database
+    write_message(ident,userId,result,True,datetime.datetime.now())
     return jsonify({"result": result})
 
 
@@ -622,6 +631,9 @@ def traintimes():
     destination = content['destination']
 
     result = getTrainTimeDetail(origin, destination)
+    ident = json.dumps(datetime.datetime.utcnow(),default=date_handler).strip('"')
+    #write chatbot reply to database
+    write_message(ident,userId,result,True,datetime.datetime.now())
     return jsonify({"result": result})
 
 
@@ -635,6 +647,9 @@ def busbooking():
     bus_type = content['bus_type']
 
     result = bookBusTicket(origin, destination, date, time, bus_type)
+    ident = json.dumps(datetime.datetime.utcnow(),default=date_handler).strip('"')
+    #write chatbot reply to database
+    write_message(ident,userId,result,True,datetime.datetime.now())
     return jsonify({"result": result})
 
 
@@ -648,6 +663,9 @@ def trainbooking():
     seat_type = content['seat_type']
 
     result = bookBusTicket(origin, destination, date, time, seat_type)
+    ident = json.dumps(datetime.datetime.utcnow(),default=date_handler).strip('"')
+    #write chatbot reply to database
+    write_message(ident,userId,result,True,datetime.datetime.now())
     return jsonify({"result": result})
 
 
