@@ -11,7 +11,6 @@ from flask_cors import CORS
 import nltk
 from xgboost import XGBClassifier
 import os
-nltk.download('stopwords')
 
 
 REPLACE_BY_SPACE_RE = re.compile('[/(){}\[\]\|@,;]')
