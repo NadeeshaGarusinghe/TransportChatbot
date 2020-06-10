@@ -282,8 +282,12 @@ def getBusTimeDetail(origin, destination):
             result1[0][3] + " from " + origin + " to "+destination + \
             " and it reach to the destination at "+result1[0][4]
         if (len(result1) == 1):
-            result2 = "Here are some bus times from "+origin+" to "+destination+"  *"
-            for i in range(4):
+            result2 = "Here are some bus times from "+origin+" to "+destination
+            if (len(allData)<4):
+                size=len(allData)
+            else:
+                size=4
+            for i in range(size):
                 result2 = result2+"\ndepart at:" + \
                     allData[i][3]+"-arrive at:"+allData[i][4]
         else:
@@ -337,7 +341,7 @@ def getTrainTimeDetail(origin, destination):
     if (len(result1)) == 0:
         result = "No train will run after this moment for today"
         result2 = "Here are some train times from "+origin+" to "+destination
-        if (len(allData)<5):
+        if (len(allData)<4):
             size=len(allData)
         else:
             size=4
