@@ -65,6 +65,13 @@ count=0
 for i in questions:
     predicted_results.append(predicttag(i))
 
-print (predicted_results)
-print (len(predicted_results))
-    
+
+
+#test for questions that are not related
+out_of_domain_questions=["Is it rainy today","do you like mangoes","what is your university","can I rent a bus for a trip","can I find a driver for my bus","want to channel a doctor","how much is a kilo of rice","I like to read books","how to rent a car","i want to buy a bicycle"]
+
+for i in out_of_domain_questions:
+    X = [text_prepare(i)]
+    y = vectorizer.transform(X)
+    p = model.predict_proba(y)[0]   
+    print (max(p))
