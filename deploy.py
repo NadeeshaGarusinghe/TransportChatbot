@@ -360,7 +360,7 @@ def getTrainTimeDetail(origin, destination):
                 for i in range(len(allData)-1):
                     print (result2)
                     result2 = result2+"\n" + \
-                        allData[i]3]+"-train type:"+allData[i][5]
+                        allData[i][3]+"-train type:"+allData[i][5]
         else:
             result2 = "After that train, following times also have the trains from  " + \
                 origin+" to "+destination
