@@ -403,7 +403,7 @@ def bookTrainTicket(origin, destination, date, time, seat_type):
         mySQLConnection = mysql.connector.connect(
             host=databasehost, database=database, user=databaseuser, password=databasepassword)
         cursor = mySQLConnection.cursor(buffered=True)
-        sql_select_query = "INSERT INTO train_ticket_booking (origin,destination,date,time,train_type) VALUES (%s ,%s, %s,%s,%s)"
+        sql_select_query = "INSERT INTO train_ticket_booking (origin,destination,date,time,seat_type) VALUES (%s ,%s, %s,%s,%s)"
         values = (origin, destination, date, time, seat_type)
         cursor.execute(sql_select_query, values)
         mySQLConnection.commit()
