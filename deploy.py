@@ -593,7 +593,7 @@ def trainbooking():
     date = content['date']
     time = content['time']
     seat_type = content['seat_type']
-    result = bookBusTicket(origin, destination, date, time, seat_type)
+    result = bookTrainTicket(origin, destination, date, time, seat_type)
     return jsonify({"result": result})
 
 
